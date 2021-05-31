@@ -1,7 +1,7 @@
 module.exports = function(app, db) {
   app.get('/name/:name', (req, res) => {
     const name = req.params.name;
-    const query = { name : name};
+    const query = { name : /name/};
     const options = { information : 1, _id: 0 };
     db.collection('database').findOne(query, options, (err, item) => {
       if (err) {
