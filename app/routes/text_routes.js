@@ -1,8 +1,9 @@
 module.exports = function(app, db) {
   app.get('/name/:name', (req, res) => {
     const name = req.params.name;
-    const query = { name : /name/};
-    const options = { information : 1, _id: 0 };
+    const query = { '$text' : {'$search' : name}};
+    const options = { 'information' : 1, '_id': 0 };
+    db.collection('database').createIndex({name : "text"});
     db.collection('database').findOne(query, options, (err, item) => {
       if (err) {
         res.send({'error':'An error has occurred'});
